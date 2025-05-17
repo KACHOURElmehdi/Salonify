@@ -1,0 +1,130 @@
+<div class="shop-detail" *ngIf="shop">
+  <div class="shop-header">
+    <div class="shop-image">
+      <img [src]="shop.imageUrl || 'assets/images/default-shop.jpg'" [alt]="shop.name">
+      <div class="shop-status" [class.open]="isOpen()">
+        {{ isOpen() ? 'Open' : 'Closed' }}
+      </div>
+    </div>
+    <div class="shop-info">
+      <h1>{{ shop.name }}</h1>
+      <div class="rating">
+        <span class="stars">
+          <span class="filled-stars" [style.width.%]="shop.rating * 20">★★★★★</span>
+          <span class="empty-stars">★★★★★</span>
+        </span>
+        <span class="rating-value">{{ shop.rating.toFixed(1) }}</span>
+      </div>
+      <p class="description">{{ shop.description }}</p>
+      <div class="contact-info">
+        <p><i class="fas fa-map-marker-alt"></i> {{ shop.address }}</p>
+        <p><i class="fas fa-phone"></i> {{ shop.phone }}</p>
+        <p><i class="fas fa-envelope"></i> {{ shop.email }}</p>
+      </div>
+      <div class="features">
+        <span *ngFor="let feature of shop.features" class="feature-tag">
+          {{ feature }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button 
+      [class.active]="selectedTab === 'info'"
+      (click)="selectedTab = 'info'">
+      Information
+    </button>
+    <button 
+      [class.active]="selectedTab === 'barbers'"
+      (click)="selectedTab = 'barbers'">
+      Our Barbers
+    </button>
+    <button 
+      [class.active]="selectedTab === 'services'"
+      (click)="selectedTab = 'services'">
+      Services
+    </button>
+  </div>
+
+  <div class="tab-content" [ngSwitch]="selectedTab">
+    <!-- Info Tab -->
+    <div *ngSwitchCase="'info'" class="info-tab">
+      <div class="opening-hours">
+        <h2>Opening Hours</h2>
+        <div class="hours-grid">
+          <ng-container *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']">
+            <div class="day">{{ day }}</div>
+            <div class="hours">
+              <ng-container *ngIf="shop.openingHours[day].open !== 'Closed'; else closed">
+                {{ shop.openingHours[day].open }} - {{ shop.openingHours[day].close }}
+              </ng-container>
+              <ng-template #closed>Closed</ng-template>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barbers Tab -->
+    <div *ngSwitchCase="'barbers'" class="barbers-tab">
+      <div class="barbers-grid">
+        <div *ngFor="let barber of getShopBarbers()" class="barber-card">
+          <div class="barber-image">
+            <img [src]="barber.avatarUrl || 'assets/images/default-barber.jpg'" [alt]="barber.name">
+          </div>
+          <div class="barber-info">
+            <h3>{{ barber.name }}</h3>
+            <div class="barber-services">
+              <h4>Services:</h4>
+              <ul>
+                <li *ngFor="let service of getServicesByBarber(barber)">
+                  {{ service.title }}
+                </li>
+              </ul>
+            </div>
+            <div class="barber-features">
+              <span *ngIf="barber.offersHomeVisit" class="feature-tag">
+                Home Visits Available
+              </span>
+            </div>
+            <a [routerLink]="['/booking']" [queryParams]="{barber: barber.id}" class="book-button">
+              Book with {{ barber.name }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Services Tab -->
+    <div *ngSwitchCase="'services'" class="services-tab">
+      <div class="services-grid">
+        <div *ngFor="let service of getShopServices()" class="service-card">
+          <h3>{{ service.title }}</h3>
+          <div class="service-details">
+            <div class="duration">
+              <i class="fas fa-clock"></i>
+              {{ service.durationMinutes }} minutes
+            </div>
+            <div class="price">
+              <i class="fas fa-tag"></i>
+              ${{ service.price }}
+            </div>
+          </div>
+          <a [routerLink]="['/booking']" 
+             [queryParams]="{shop: shop.id, service: service.id}" 
+             class="book-button">
+            Book Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="not-found" *ngIf="!shop">
+  <h2>Shop not found</h2>
+  <p>The shop you're looking for doesn't exist or has been removed.</p>
+  <a routerLink="/shops" class="back-button">Back to Shops</a>
+</div>
+  

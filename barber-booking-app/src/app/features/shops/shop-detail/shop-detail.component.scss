@@ -1,0 +1,353 @@
+.shop-detail {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.shop-header {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+
+  .shop-image {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .shop-status {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      background-color: #ff4444;
+      color: white;
+
+      &.open {
+        background-color: #00C851;
+      }
+    }
+  }
+
+  .shop-info {
+    h1 {
+      margin: 0 0 1rem;
+      color: #333;
+      font-size: 2rem;
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+
+      .stars {
+        position: relative;
+        display: inline-block;
+        
+        .filled-stars,
+        .empty-stars {
+          position: absolute;
+          top: 0;
+          left: 0;
+          color: #ffd700;
+        }
+
+        .empty-stars {
+          color: #ddd;
+        }
+
+        .filled-stars {
+          overflow: hidden;
+          white-space: nowrap;
+        }
+      }
+
+      .rating-value {
+        color: #666;
+        font-weight: 500;
+      }
+    }
+
+    .description {
+      color: #666;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .contact-info {
+      margin-bottom: 1.5rem;
+
+      p {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #666;
+        margin-bottom: 0.5rem;
+
+        i {
+          color: #333;
+          width: 20px;
+        }
+      }
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      .feature-tag {
+        background-color: #f5f5f5;
+        color: #666;
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-size: 0.875rem;
+      }
+    }
+  }
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #ddd;
+
+  button {
+    padding: 1rem 2rem;
+    background: none;
+    border: none;
+    color: #666;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #333;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    &.active {
+      color: #333;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+
+    &:hover {
+      color: #333;
+    }
+  }
+}
+
+.tab-content {
+  min-height: 400px;
+}
+
+.info-tab {
+  .opening-hours {
+    background-color: white;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      margin: 0 0 1.5rem;
+      color: #333;
+    }
+
+    .hours-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+
+      .day {
+        color: #666;
+        font-weight: 500;
+      }
+
+      .hours {
+        color: #333;
+      }
+    }
+  }
+}
+
+.barbers-tab {
+  .barbers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .barber-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .barber-image {
+      height: 200px;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .barber-info {
+      padding: 1.5rem;
+
+      h3 {
+        margin: 0 0 1rem;
+        color: #333;
+      }
+
+      .barber-services {
+        margin-bottom: 1rem;
+
+        h4 {
+          color: #666;
+          margin: 0 0 0.5rem;
+          font-size: 0.875rem;
+        }
+
+        ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+
+          li {
+            color: #333;
+            margin-bottom: 0.25rem;
+          }
+        }
+      }
+
+      .barber-features {
+        margin-bottom: 1rem;
+      }
+
+      .book-button {
+        display: block;
+        width: 100%;
+        padding: 0.8rem;
+        background-color: #333;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #444;
+        }
+      }
+    }
+  }
+}
+
+.services-tab {
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .service-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    h3 {
+      margin: 0 0 1rem;
+      color: #333;
+    }
+
+    .service-details {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      color: #666;
+
+      i {
+        margin-right: 0.5rem;
+      }
+
+      .price {
+        font-weight: bold;
+        color: #333;
+      }
+    }
+
+    .book-button {
+      display: block;
+      width: 100%;
+      padding: 0.8rem;
+      background-color: #333;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #444;
+      }
+    }
+  }
+}
+
+.not-found {
+  text-align: center;
+  padding: 4rem 2rem;
+
+  h2 {
+    color: #333;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: #666;
+    margin-bottom: 2rem;
+  }
+
+  .back-button {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #444;
+    }
+  }
+}

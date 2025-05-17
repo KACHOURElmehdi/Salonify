@@ -1,0 +1,56 @@
+<div class="shops-container">
+  <div class="shops-header">
+    <h1>Find a Barbershop</h1>
+    <div class="filters">
+      <div class="search-box">
+        <input 
+          type="text" 
+          [(ngModel)]="searchTerm" 
+          (ngModelChange)="filterShops()"
+          placeholder="Search by name, description, or location..."
+        >
+      </div>
+      <div class="sort-box">
+        <select [(ngModel)]="sortBy" (ngModelChange)="sortShops()">
+          <option value="rating">Sort by Rating</option>
+          <option value="name">Sort by Name</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="shops-grid">
+    <div *ngFor="let shop of filteredShops" class="shop-card" [routerLink]="['/shops', shop.id]">
+      <div class="shop-image">
+        <img [src]="shop.imageUrl || 'assets/images/default-shop.jpg'" [alt]="shop.name">
+        <div class="shop-status" [class.open]="isOpen(shop)">
+          {{ isOpen(shop) ? 'Open' : 'Closed' }}
+        </div>
+      </div>
+      <div class="shop-info">
+        <h3>{{ shop.name }}</h3>
+        <div class="rating">
+          <span class="stars">
+            <span class="filled-stars" [style.width.%]="shop.rating * 20">★★★★★</span>
+            <span class="empty-stars">★★★★★</span>
+          </span>
+          <span class="rating-value">{{ shop.rating.toFixed(1) }}</span>
+        </div>
+        <p class="description">{{ shop.description }}</p>
+        <p class="address">
+          <i class="fas fa-map-marker-alt"></i>
+          {{ shop.address }}
+        </p>
+        <div class="features">
+          <span *ngFor="let feature of shop.features" class="feature-tag">
+            {{ feature }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="filteredShops.length === 0" class="no-results">
+    <p>No shops found matching your search criteria.</p>
+  </div>
+</div>
