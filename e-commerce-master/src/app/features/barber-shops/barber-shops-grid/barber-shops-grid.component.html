@@ -1,0 +1,40 @@
+<div class="barber-shops-container">
+    <!-- Loading State -->
+    <div class="loading-state" *ngIf="loading">
+        <mat-spinner></mat-spinner>
+        <p>Loading barber shops...</p>
+    </div>
+
+    <!-- Error State -->
+    <div class="error-state" *ngIf="error">
+        <mat-icon>error</mat-icon>
+        <p>{{ error }}</p>
+    </div>
+
+    <!-- Barber Shops Grid -->
+    <div class="shops-grid" *ngIf="!loading && !error">
+        <div class="shop-card" *ngFor="let shop of barberShops">
+            <img [src]="shop.images.main" [alt]="shop.name" class="shop-image">
+            <div class="shop-content">
+                <h3>{{ shop.name }}</h3>
+                <div class="rating">
+                    <mat-icon>star</mat-icon>
+                    <span>{{ shop.rating.average }} ({{ shop.rating.count }})</span>
+                </div>
+                <p class="address">
+                    <mat-icon>location_on</mat-icon>
+                    {{ shop.address.street }}, {{ shop.address.city }}
+                </p>
+                <p class="description">{{ shop.description | slice:0:100 }}...</p>
+                <div class="shop-footer">
+                    <button mat-raised-button color="primary" [routerLink]="['/shops', shop.id]">
+                        View Details
+                    </button>
+                    <button mat-stroked-button color="accent">
+                        Book Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

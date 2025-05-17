@@ -1,0 +1,75 @@
+<div class="services-page">
+  <div class="hero">
+    <div class="container">
+      <h1>Our Services</h1>
+      <p>Choose from our wide range of professional hair care services</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="filters">
+      <div class="search-box">
+        <input 
+          type="text" 
+          [(ngModel)]="searchTerm" 
+          (ngModelChange)="filterServices()"
+          placeholder="Search services..."
+        >
+      </div>
+      <div class="filter-options">
+        <select [(ngModel)]="selectedCategory" (ngModelChange)="filterServices()">
+          <option value="">All Categories</option>
+          <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+        </select>
+        <select [(ngModel)]="selectedDuration" (ngModelChange)="filterServices()">
+          <option value="">All Durations</option>
+          <option value="30">30 minutes or less</option>
+          <option value="60">1 hour or less</option>
+          <option value="90">1.5 hours or less</option>
+          <option value="120">2 hours or less</option>
+        </select>
+        <select [(ngModel)]="selectedLocation" (ngModelChange)="filterServices()">
+          <option value="">All Locations</option>
+          <option value="salon">Salon Only</option>
+          <option value="home">Home Service Available</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card" *ngFor="let service of filteredServices">
+        <div class="service-image">
+          <img [src]="service.image" [alt]="service.name">
+          <span class="duration">
+            <i class="fas fa-clock"></i> {{service.duration}} min
+          </span>
+          <span class="location" *ngIf="service.homeService">
+            <i class="fas fa-home"></i> Home Service
+          </span>
+        </div>
+        <div class="service-content">
+          <h3>{{service.name}}</h3>
+          <p class="category">{{service.category}}</p>
+          <p class="description">{{service.description}}</p>
+          <div class="service-footer">
+            <span class="price">From {{service.price}}</span>
+            <a [routerLink]="['/services', service.id]" class="btn btn-primary">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="no-results" *ngIf="filteredServices.length === 0">
+      <i class="fas fa-search"></i>
+      <h3>No services found</h3>
+      <p>Try adjusting your filters or search term</p>
+    </div>
+
+    <div class="load-more" *ngIf="hasMoreServices">
+      <button class="btn btn-secondary" (click)="loadMore()">
+        <span *ngIf="!isLoading">Load More</span>
+        <span *ngIf="isLoading">Loading...</span>
+      </button>
+    </div>
+  </div>
+</div>

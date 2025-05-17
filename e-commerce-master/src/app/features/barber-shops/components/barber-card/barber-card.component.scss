@@ -1,0 +1,60 @@
+.barber-card {
+    max-width: 350px;
+    margin: 1rem;
+    
+    .barber-image {
+        height: 250px;
+        object-fit: cover;
+    }
+
+    mat-card-header {
+        margin-bottom: 1rem;
+    }
+
+    .bio {
+        margin-bottom: 1rem;
+        color: #666;
+        line-height: 1.4;
+    }
+
+    .specialties {
+        margin-bottom: 1rem;
+
+        h4 {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        mat-chip-list {
+            mat-chip {
+                margin: 0.25rem;
+            }
+        }
+    }
+
+    .rating {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        mat-icon {
+            color: #ffd700;
+            margin-right: 0.5rem;
+        }
+
+        span {
+            color: #666;
+        }
+    }
+
+    mat-card-actions {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem;
+
+        button {
+            flex: 1;
+            margin: 0 0.25rem;
+        }
+    }
+} 

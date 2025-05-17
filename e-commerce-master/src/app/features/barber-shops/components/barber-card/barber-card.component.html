@@ -1,0 +1,24 @@
+<mat-card class="barber-card">
+    <img [src]="barber.profileImage" [alt]="barber.firstName + ' ' + barber.lastName" class="barber-image" mat-card-image>
+    <mat-card-header>
+        <mat-card-title>{{ barber.firstName }} {{ barber.lastName }}</mat-card-title>
+        <mat-card-subtitle>{{ barber.experience }} years of experience</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p class="bio">{{ barber.bio }}</p>
+        <div class="specialties">
+            <h4>Specialties:</h4>
+            <mat-chip-listbox>
+                <mat-chip-option *ngFor="let specialty of barber.specialties">{{ specialty }}</mat-chip-option>
+            </mat-chip-listbox>
+        </div>
+        <div class="rating" *ngIf="barber.rating">
+            <mat-icon>star</mat-icon>
+            <span>{{ barber.rating.average }} ({{ barber.rating.count }} reviews)</span>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary">Book Appointment</button>
+        <button mat-button color="accent">View Profile</button>
+    </mat-card-actions>
+</mat-card> 
