@@ -29,14 +29,18 @@ public class AuthService {
         user.setEmail(req.email());
         user.setPhone(req.phone());
         user.setPasswordHash(encoder.encode(req.password()));   // ← nom exact du champ
-        repo.save(user);
-        return new AuthResponse(jwtService.generate(user.getEmail())); // ou generateToken(user) si tu ajoutes la méthode
+        user = repo.save(user);
+        
+        String token = jwtService.generate(user.getEmail());
+        return new AuthResponse(token, user);
     }
 
     public AuthResponse authenticate(AuthRequest req) {
         authManager.authenticate(
             new UsernamePasswordAuthenticationToken(req.email(), req.password())
         );
-        return new AuthResponse(jwtService.generate(req.email())); // idem
+        User user = repo.findByEmail(req.email());
+        String token = jwtService.generate(req.email());
+        return new AuthResponse(token, user);
     }
 }

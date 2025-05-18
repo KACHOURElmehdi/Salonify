@@ -1,4 +1,6 @@
 // dto/AuthResponse.java
 package com.barber.backend.dto;
 
-public record AuthResponse(String token) { }
+import com.barber.backend.model.User;
+
+public record AuthResponse(String token, User user) { }
